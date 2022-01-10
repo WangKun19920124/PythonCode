@@ -3,7 +3,7 @@ import pygame
 
 class Ship:
     """初始化飞船并设置初始位置"""
-    def __init__(self, screen):
+    def __init__(self, screen, setting):
         self.screen = screen
 
         self.image = pygame.image.load('D:\\WorkSpace\\PythonCode\\AliensGame\\resources\\ship.bmp')
@@ -16,16 +16,17 @@ class Ship:
         self.movingRight = False
         self.movingLeft = False
 
+        self.setting = setting
     # 刷新飞船位置
     def refreshShipLocation(self):
         if self.movingLeft == True:
             if(self.rect.x > 0):
-                self.rect.x -= 1
+                self.rect.x -= self.setting.shipSpeed
             else:
                 self.rect.x = 0
         if self.movingRight == True:
             if(self.rect.x < self.screenRect.width - self.rect.width):
-                self.rect.x += 1
+                self.rect.x += self.setting.shipSpeed
             else:
                 self.rect.x = (self.screenRect.width - self.rect.width)
 
