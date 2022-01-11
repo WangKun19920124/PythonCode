@@ -2,6 +2,8 @@ import sys
 
 import pygame
 
+from pygame.sprite import Group
+
 import Setting
 
 import Ship
@@ -20,6 +22,10 @@ def run_game():
 
     # 创建一个ship对象
     ship = Ship.Ship(screen, settings)
+
+    # 存储所有子弹
+    bullets = Group()
+
     # 开始游戏的主循环
     while True:
         # 每次循环监视事件
@@ -27,6 +33,9 @@ def run_game():
 
         # 刷新飞船位置
         ship.refreshShipLocation()
+
+        # 子弹位置
+        bullets.refreshBulletLocation()
 
         # 重绘飞船
         ship.blitme()

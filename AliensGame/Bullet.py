@@ -18,6 +18,7 @@ class Bullet(Sprite):
 
         # 窗口
         self.screen = screen
+
     def refreshBulletLocation(self):
         self.floatY -= self.speed
         self.rect.y = self.floatY

@@ -3,8 +3,9 @@ import sys
 
 import pygame
 
+import Bullet
 
-def checkEvents(ship):
+def checkEvents(ship, setting, screen, bullets):
     """按键事件响应"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -16,11 +17,14 @@ def checkEvents(ship):
             keyUpEvents(event, ship)
 
 # 按键按下响应事件
-def keyDownEvents(event, ship):
+def keyDownEvents(event, ship, setting, screen, bullets):
     if event.key == pygame.K_RIGHT:
         ship.movingRight = True
     if event.key == pygame.K_LEFT:
         ship.movingLeft = True
+    if(event.key == pygame.K_SPACE):
+        newBullet = Bullet.Bullet(setting, screen, ship)
+        bullets.add(newBullet)
 
 # 按键弹起响应事件
 def keyUpEvents(event, ship):
