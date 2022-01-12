@@ -10,6 +10,8 @@ import Ship
 
 import GameFunction
 
+import Alien
+
 def run_game():
     # 创建设置对象
     settings = Setting.Setting()
@@ -24,24 +26,27 @@ def run_game():
     ship = Ship.Ship(screen, settings)
 
     # 存储所有子弹
-    bullets = Group()
+    # bullets = Group()
+    bullets = []
 
+    # 创建一个外星人
+    alien = Alien.Alien(screen, settings)
     # 开始游戏的主循环
     while True:
         # 每次循环监视事件
-        GameFunction.checkEvents(ship)
+        GameFunction.checkEvents(ship, settings, screen, bullets)
 
         # 刷新飞船位置
         ship.refreshShipLocation()
 
-        # 子弹位置
-        bullets.refreshBulletLocation()
+        # 刷新子弹位置
+        GameFunction.refreshBullets(bullets)
 
         # 重绘飞船
-        ship.blitme()
+        ship.drawShip()
 
-        # 重绘屏幕
-        GameFunction.refreshScreen(settings, screen, ship)
+        # 绘制屏幕、飞船、子弹
+        GameFunction.refreshScreen(settings, screen, ship, bullets, alien)
 
 
 run_game()

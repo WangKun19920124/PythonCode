@@ -19,10 +19,14 @@ class Bullet(Sprite):
         # 窗口
         self.screen = screen
 
+    # 绘制子弹
+    def drawBullet(self):
+        pygame.draw.rect(self.screen, self.color, self.rect)
+
+    # 刷新子弹位置
     def refreshBulletLocation(self):
         self.floatY -= self.speed
         self.rect.y = self.floatY
 
-    def drawBullet(self):
-        pygame.draw.rect(self.screen, self.color, self.rect)
+
 

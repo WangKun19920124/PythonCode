@@ -17,6 +17,11 @@ class Ship:
         self.movingLeft = False
 
         self.setting = setting
+
+    # 绘制飞船
+    def drawShip(self):
+        self.screen.blit(self.image, self.rect)
+
     # 刷新飞船位置
     def refreshShipLocation(self):
         if self.movingLeft == True:
@@ -30,9 +35,7 @@ class Ship:
             else:
                 self.rect.x = (self.screenRect.width - self.rect.width)
 
-    # 绘制飞船
-    def blitme(self):
-        self.screen.blit(self.image, self.rect)
+
 
 
 
