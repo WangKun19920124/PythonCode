@@ -3,6 +3,8 @@ import pygame
 
 from pygame.sprite import Sprite
 
+import GameFunction
+
 
 class Bullet(Sprite):
     def __init__(self, setting, screen, ship):
@@ -11,6 +13,8 @@ class Bullet(Sprite):
         self.rect.centerx = ship.rect.centerx   # 子弹初始位置
         self.rect.bottom = ship.rect.top
         self.floatY = float(self.rect.y)
+        self.setting = setting
+        self.ship = ship
 
         # 子弹颜色
         self.color = setting.bulletBackColor
@@ -24,9 +28,13 @@ class Bullet(Sprite):
         pygame.draw.rect(self.screen, self.color, self.rect)
 
     # 刷新子弹位置
-    def refreshBulletLocation(self):
+    def refreshBulletLocation(self, aliens, bullets):
         self.floatY -= self.speed
         self.rect.y = self.floatY
+        collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+        if len(aliens) == 0:
+            bullets.empty()
+            GameFunction.createAlienSheet(aliens, self.screen, self.setting, self.ship)
 
 
 

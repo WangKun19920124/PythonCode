@@ -1,16 +1,16 @@
-import sys
-
 import pygame
 
-from pygame.sprite import Group
-
 import Setting
+
+from pygame.sprite import Sprite
+
+from pygame.sprite import Group
 
 import Ship
 
 import GameFunction
 
-import Alien
+import time
 
 def run_game():
     # 创建设置对象
@@ -26,13 +26,14 @@ def run_game():
     ship = Ship.Ship(screen, settings)
 
     # 存储所有子弹
-    # bullets = Group()
-    bullets = []
+    bullets = Group()
+    # bullets = []
 
-    # 创建一个外星人
-    aliens = []
-    GameFunction.createAlienSheet(aliens, screen, settings)
-    # 开始游戏的主循环
+    # 创建外星人编队
+    aliens = Group()
+    GameFunction.createAlienSheet(aliens, screen, settings, ship)
+
+    # 游戏主循环
     while True:
         # 每次循环监视事件
         GameFunction.checkEvents(ship, settings, screen, bullets)
@@ -41,14 +42,15 @@ def run_game():
         ship.refreshShipLocation()
 
         # 刷新子弹位置
-        GameFunction.refreshBullets(bullets)
+        GameFunction.refreshBullets(bullets, aliens)
 
-        # 重绘飞船
-        ship.drawShip()
+        # 刷新敌人位置
+        GameFunction.refreshAlienSheet(settings, aliens)
 
-        # 绘制屏幕、飞船、子弹
+        # 重新绘制屏幕、飞船、子弹、敌人
         GameFunction.refreshScreen(settings, screen, ship, bullets, aliens)
 
+        time.sleep(1/60)
 
 run_game()
 

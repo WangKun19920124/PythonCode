@@ -61,43 +61,65 @@ def createBullets(bullets, setting, screen, ship):
     if (len(bullets) < setting.bulletMaxCount):
         newBullet = Bullet.Bullet(setting, screen, ship)
         # bullets.add(newBullet)
-        bullets.append(newBullet)
+        bullets.add(newBullet)
 
 
 # 子弹刷新、销毁
-def refreshBullets(bullets):
+def refreshBullets(bullets, aliens):
     # 刷新子弹位置、销毁屏幕外的子弹
     # bullets.refreshBulletLocation()
     for b in bullets:
-        b.refreshBulletLocation()
+        b.refreshBulletLocation(aliens, bullets)
     for b in bullets.copy():
         if(b.rect.bottom <= 0):
             bullets.remove(b)
 
+
 # 创建外星人编队
-def createAlienSheet(aliens, screen, setting):
+def createAlienSheet(aliens, screen, setting, ship):
     alien = Alien.Alien(screen, setting)
     alienWidth = alien.rect.width
-    totalNumOfAliens = getTotalNumOfAliens(screen, setting, alienWidth)
-
-    for indexAlien in range(totalNumOfAliens):
-        createAlien(screen, setting, aliens, indexAlien, alienWidth)
-
-    # alien = Alien.Alien(screen, setting)
-    # alienWidth = alien.rect.width
-    # totalNumOfAliens = int((setting.screenWidth - alienWidth * 2) / (alienWidth * 2))
-    # for indexAlien in range(totalNumOfAliens):
-    #     alien.rect.x = alienWidth + 2 * alienWidth * indexAlien
-    #     aliens.append(alien)
+    rowNumOfAliens = calcRowNumOfAliens(screen, setting, alienWidth)
+    totalRows = calcAlienRow(setting, alien, ship)
+    for rowIndex in range(totalRows):
+        for indexAlien in range(rowNumOfAliens):
+            createAlien(screen, setting, aliens, rowIndex, indexAlien, alienWidth)
 
 
+# 创建一个敌人
+def createAlien(screen, setting, aliens, rowIndex, alienIndex, alienWidth):
+    alien = Alien.Alien(screen, setting)
+    alien.rect.x = alienWidth + 2 * alienWidth * alienIndex
+    alien.rect.y = alien.rect.height + 2 * alien.rect.height * rowIndex
+    aliens.add(alien)
 
-def getTotalNumOfAliens(screen, setting, alienWidth):
-    totalNumOfAliens = int((setting.screenWidth - alienWidth * 2) / (alienWidth * 2))
-    return totalNumOfAliens
+
+# 计算一行敌人数量
+def calcRowNumOfAliens(screen, setting, alienWidth):
+    numOfOneRowAliens = int((setting.screenWidth - alienWidth * 2) / (alienWidth * 2))
+    return numOfOneRowAliens
 
 
-def createAlien(screen, setting, aliens, alienIndex, alienWidth):
-        alien = Alien.Alien(screen, setting)
-        alien.rect.x = alienWidth + 2*alienWidth*alienIndex
-        aliens.append(alien)
+# 计算敌人总行数
+def calcAlienRow(setting, alien, ship):
+    if(setting.AlienSheetBeginningDistance > 0):
+        distance = setting.AlienSheetBeginningDistance - 1
+    else:
+        distance = setting.AlienSheetBeginningDistance
+    return int((setting.screenHeight - distance*alien.rect.height - alien.rect.height - ship.rect.height)/(2*alien.rect.height))
+
+
+# 刷新敌人群体位置
+def refreshAlienSheet(setting, aliens):
+    checkFleetEdges(setting, aliens)
+    for a in aliens:
+        a.refreshAlienLocation(setting)
+
+# 判断是否碰撞到屏幕边缘，改变敌人群体的移动方向
+def checkFleetEdges(setting, aliens):
+    for a in aliens:
+        if a.checkEdge():
+            for al in aliens:
+                al.rect.y += setting.alienMoveSpeedVertical
+            setting.direction = setting.direction * (-1)
+            break
