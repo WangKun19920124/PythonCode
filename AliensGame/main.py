@@ -30,7 +30,8 @@ def run_game():
     bullets = []
 
     # 创建一个外星人
-    alien = Alien.Alien(screen, settings)
+    aliens = []
+    GameFunction.createAlienSheet(aliens, screen, settings)
     # 开始游戏的主循环
     while True:
         # 每次循环监视事件
@@ -46,7 +47,7 @@ def run_game():
         ship.drawShip()
 
         # 绘制屏幕、飞船、子弹
-        GameFunction.refreshScreen(settings, screen, ship, bullets, alien)
+        GameFunction.refreshScreen(settings, screen, ship, bullets, aliens)
 
 
 run_game()

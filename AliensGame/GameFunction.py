@@ -5,6 +5,7 @@ import pygame
 
 import Bullet
 
+import Alien
 
 def checkEvents(ship, setting, screen, bullets):
     """按键事件响应"""
@@ -40,7 +41,7 @@ def keyUpEvents(event, ship):
 
 
 # 刷新屏幕
-def refreshScreen(settings, screen, ship, bullets, alien):
+def refreshScreen(settings, screen, ship, bullets, aliens):
     # 填充背景色
     screen.fill(settings.backColor)
     # 绘制子弹
@@ -49,9 +50,11 @@ def refreshScreen(settings, screen, ship, bullets, alien):
     # 绘制飞船
     ship.drawShip()
     # 绘制外星人
-    alien.drawAlien()
+    for a in aliens:
+        a.drawAlien()
     # 让最近绘制的屏幕可见
     pygame.display.flip()
+
 
 # 子弹创建
 def createBullets(bullets, setting, screen, ship):
@@ -60,6 +63,7 @@ def createBullets(bullets, setting, screen, ship):
         # bullets.add(newBullet)
         bullets.append(newBullet)
 
+
 # 子弹刷新、销毁
 def refreshBullets(bullets):
     # 刷新子弹位置、销毁屏幕外的子弹
@@ -67,5 +71,33 @@ def refreshBullets(bullets):
     for b in bullets:
         b.refreshBulletLocation()
     for b in bullets.copy():
-        if (b.rect.bottom <= 0):
+        if(b.rect.bottom <= 0):
             bullets.remove(b)
+
+# 创建外星人编队
+def createAlienSheet(aliens, screen, setting):
+    alien = Alien.Alien(screen, setting)
+    alienWidth = alien.rect.width
+    totalNumOfAliens = getTotalNumOfAliens(screen, setting, alienWidth)
+
+    for indexAlien in range(totalNumOfAliens):
+        createAlien(screen, setting, aliens, indexAlien, alienWidth)
+
+    # alien = Alien.Alien(screen, setting)
+    # alienWidth = alien.rect.width
+    # totalNumOfAliens = int((setting.screenWidth - alienWidth * 2) / (alienWidth * 2))
+    # for indexAlien in range(totalNumOfAliens):
+    #     alien.rect.x = alienWidth + 2 * alienWidth * indexAlien
+    #     aliens.append(alien)
+
+
+
+def getTotalNumOfAliens(screen, setting, alienWidth):
+    totalNumOfAliens = int((setting.screenWidth - alienWidth * 2) / (alienWidth * 2))
+    return totalNumOfAliens
+
+
+def createAlien(screen, setting, aliens, alienIndex, alienWidth):
+        alien = Alien.Alien(screen, setting)
+        alien.rect.x = alienWidth + 2*alienWidth*alienIndex
+        aliens.append(alien)
