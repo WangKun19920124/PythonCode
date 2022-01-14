@@ -1,3 +1,4 @@
+# 飞船类
 import pygame
 
 
@@ -35,7 +36,9 @@ class Ship:
             else:
                 self.rect.x = (self.screenRect.width - self.rect.width)
 
-
+    # 飞船位置重新在屏幕中心
+    def centerShip(self):
+        self.rect.centerx = self.screenRect.centerx
 
 
 

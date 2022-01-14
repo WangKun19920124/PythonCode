@@ -1,5 +1,5 @@
+# 子弹类
 import pygame
-
 
 from pygame.sprite import Sprite
 
@@ -7,6 +7,7 @@ import GameFunction
 
 
 class Bullet(Sprite):
+    """子弹"""
     def __init__(self, setting, screen, ship):
         super().__init__()
         self.rect = pygame.Rect(0, 0, setting.bulletWidth, setting.bulletHeight)    # 创建子弹矩形

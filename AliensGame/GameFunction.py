@@ -7,6 +7,8 @@ import Bullet
 
 import Alien
 
+import time
+
 def checkEvents(ship, setting, screen, bullets):
     """按键事件响应"""
     for event in pygame.event.get():
@@ -110,16 +112,45 @@ def calcAlienRow(setting, alien, ship):
 
 
 # 刷新敌人群体位置
-def refreshAlienSheet(setting, aliens):
-    checkFleetEdges(setting, aliens)
+def refreshAlienSheet(setting, aliens, ship, state, bullets, screen):
+    checkFleetEdges(setting, aliens)    # 检测编队是否碰撞到边界，若碰到则改变水平移动方向、向下移动一步
     for a in aliens:
         a.refreshAlienLocation(setting)
+
+    # 检测ship是否碰撞到aliens中的任意一个
+    if pygame.sprite.spritecollideany(ship, aliens):
+        print("ship been hit!!")
+        shipHit(state, aliens, bullets, ship, screen)
+    # 检测aliens是否存在到达屏幕底部
+    checkAlienReachBottom(aliens, setting, state, bullets, ship, screen)
+
 
 # 判断是否碰撞到屏幕边缘，改变敌人群体的移动方向
 def checkFleetEdges(setting, aliens):
     for a in aliens:
         if a.checkEdge():
             for al in aliens:
-                al.rect.y += setting.alienMoveSpeedVertical
-            setting.direction = setting.direction * (-1)
+                al.rect.y += setting.alienMoveSpeedVertical     # 向下移动一步
+            setting.direction = setting.direction * (-1)        # 改变横向移动方向
+            break
+
+
+# 飞船被敌人碰撞
+def shipHit(state, aliens, bullets, ship, screen):
+    if state.shipLeft > 0:
+        state.shipLeft -= 1  # 剩余飞船数-1
+        aliens.empty()  # 清空敌人
+        bullets.empty()  # 清空子弹
+        ship.centerShip()  # 飞船回到起始中间位置
+        createAlienSheet(aliens, screen, state.setting, ship)  # 重新创建飞船舰队
+        time.sleep(0.5)  # 游戏停顿
+    else:
+        state.gameActive = False
+
+
+# 敌人到达屏幕底部调用shipHit逻辑
+def checkAlienReachBottom(aliens, setting, state, bullets, ship, screen):
+    for a in aliens:
+        if(a.rect.bottom >= setting.screenHeight):
+            shipHit(state, aliens, bullets, ship, screen)
             break
