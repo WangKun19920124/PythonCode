@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib
 
 ## 绘制曲线
 # x = [1, 3, 9, 16, 25, 36]
@@ -66,10 +67,101 @@ import matplotlib.pyplot as plt
 #         print("walk over..")
 #         break
 
-import numpy
-# data = numpy.random.randn(10000)
-data = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5]
-plt.hist(data, bins=40, density=True, facecolor='blue', edgecolor='black', alpha=0.7)
-plt.xlabel("gauss distribution", fontsize=20)
-plt.ylabel("value", fontsize=20)
-plt.show()
+# import numpy
+# # data = numpy.random.randn(10000)
+# data = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5]
+# plt.hist(data, bins=40, density=True, facecolor='blue', edgecolor='black', alpha=0.7)
+# plt.xlabel("gauss distribution", fontsize=20)
+# plt.ylabel("value", fontsize=20)
+# plt.show()
+
+# ##饼图
+# matplotlib.rcParams['font.sans-serif'] = ['SimHei']
+# matplotlib.rcParams['axes.unicode_minus'] = False
+# size = [40, 40, 20]
+# explode = [0.1, 0, 0]
+# color = ["red", "green", "blue"]
+# label = ["part1", "part2", "part3"]
+#
+# plt.pie(size, explode=explode, colors=color, labels=label, labeldistance=1.1, autopct="%1.1f%%", shadow=False, startangle=90, pctdistance=0.6)
+# plt.axis("equal")
+# plt.legend()
+# plt.show()
+
+# ##条形图
+# labels = ["2019", "2020", "2021", "2022"]
+# num1 = [50, 100, 150, 200]
+# num2 = [10, 100, 200, 300]
+# a = [0, 1, 2, 3]
+# ##绘制
+# rects1 = plt.bar(a, height=num1, width=0.4, alpha=0.8, color="red", label="department1")
+# rects2 = plt.bar([i+0.4 for i in a], height=num2, width=0.4, alpha=0.8, color="blue", label="department2")
+# ##设置坐标轴
+# plt.title("company")
+# plt.xlabel("year")
+# plt.xticks([index + 0.2 for index in a], labels)
+# plt.ylabel("total count")
+# plt.ylim(0, 400)
+# plt.legend(loc="upper left")
+# ##条形图上文本
+# # for rect in rects1:
+# #     height = rect.get_height()
+# #     plt.text(rect.get_x(), rect.get_width()/2, height + 1, str(height), ha="center", va="bottom")
+#
+# plt.show()
+
+##
+import csv
+from datetime import datetime
+filename = 'C:\\Users\\eivision\\Desktop\\222.csv'
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+    for index, colIndex in enumerate(header_row):
+        print(index, colIndex)
+
+    date = []
+    temperature = []
+    for row in reader:
+        # curDate = datetime.strptime(row[0], "%Y/%m/%d")
+        # date.append(curDate)
+        date.append(row[0])
+        temperature.append(int(row[1]))
+    fig = plt.figure(dpi=128, figsize=(10, 6))
+    plt.plot(date, temperature, c="green")
+    plt.title("csv graph", fontsize=24)
+    plt.xlabel("date", fontsize=10)
+    plt.ylabel("temperature ℃", fontsize=10)
+    plt.ylim(0, 40)
+    plt.tick_params(axis="both", which="major", labelsize=16)
+    fig.autofmt_xdate()
+    plt.show()
+    print(temperature)
+    print(date)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
