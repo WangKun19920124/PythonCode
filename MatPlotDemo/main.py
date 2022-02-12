@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib
-
+import numpy as np
 ## 绘制曲线
 # x = [1, 3, 9, 16, 25, 36]
 # plt.plot(range(1, 7), x, linewidth=3)
@@ -88,7 +88,7 @@ import matplotlib
 # plt.legend()
 # plt.show()
 
-# ##条形图
+##条形图
 # labels = ["2019", "2020", "2021", "2022"]
 # num1 = [50, 100, 150, 200]
 # num2 = [10, 100, 200, 300]
@@ -111,49 +111,66 @@ import matplotlib
 # plt.show()
 
 ##
-import csv
-from datetime import datetime
-filename = 'C:\\Users\\eivision\\Desktop\\222.csv'
-with open(filename) as f:
-    reader = csv.reader(f)
-    header_row = next(reader)
-    for index, colIndex in enumerate(header_row):
-        print(index, colIndex)
+# import csv
+# from datetime import datetime
+# filename = 'C:\\Users\\eivision\\Desktop\\222.csv'
+# with open(filename) as f:
+#     reader = csv.reader(f)
+#     header_row = next(reader)
+#     for index, colIndex in enumerate(header_row):
+#         print(index, colIndex)
+#
+#     date = []
+#     temperature = []
+#     for row in reader:
+#         # curDate = datetime.strptime(row[0], "%Y/%m/%d")
+#         # date.append(curDate)
+#         date.append(row[0])
+#         temperature.append(int(row[1]))
+#     fig = plt.figure(dpi=128, figsize=(10, 6))
+#     plt.plot(date, temperature, c="green")
+#     plt.title("csv graph", fontsize=24)
+#     plt.xlabel("date", fontsize=10)
+#     plt.ylabel("temperature ℃", fontsize=10)
+#     plt.ylim(0, 40)
+#     plt.tick_params(axis="both", which="major", labelsize=16)
+#     fig.autofmt_xdate()
+#     plt.show()
+#     print(temperature)
+#     print(date)
 
-    date = []
-    temperature = []
-    for row in reader:
-        # curDate = datetime.strptime(row[0], "%Y/%m/%d")
-        # date.append(curDate)
-        date.append(row[0])
-        temperature.append(int(row[1]))
-    fig = plt.figure(dpi=128, figsize=(10, 6))
-    plt.plot(date, temperature, c="green")
-    plt.title("csv graph", fontsize=24)
-    plt.xlabel("date", fontsize=10)
-    plt.ylabel("temperature ℃", fontsize=10)
-    plt.ylim(0, 40)
-    plt.tick_params(axis="both", which="major", labelsize=16)
-    fig.autofmt_xdate()
-    plt.show()
-    print(temperature)
-    print(date)
+# ## 绘制心形1
+# t = np.linspace(-np.pi, np.pi, 256, endpoint=True)
+# X=16*(np.sin(t))**3
+# Y=13*np.cos(t)-5*np.cos(2*t)-2*np.cos(3*t)-np.cos(4*t)
+#
+# plt.subplot(121)
+# plt.plot(X,Y)
+#
+# x=y=np.arange(-3.0, 3.0, 0.02)
+# X, Y=np.meshgrid(x, y)
+# Z= (X**2 + Y**2 - 1)**3 -X**2 *  Y**3
+# plt.subplot(122)
+# plt.contour(X, Y, Z)
+# plt.colorbar()
+#
+# plt.show()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# 绘制心形2
+import turtle
+turtle.color('red', 'pink')
+turtle.pensize(2)
+turtle.pendown()
+turtle.setheading(150)
+turtle.begin_fill()
+turtle.fd(50)
+turtle.circle(50 * -3.745, 45)
+turtle.circle(50 * -1.431, 165)
+turtle.left(120)
+turtle.circle(50 * -1.431, 165)
+turtle.circle(50 * -3.745, 45)
+turtle.fd(50)
+turtle.end_fill()
 
 
 

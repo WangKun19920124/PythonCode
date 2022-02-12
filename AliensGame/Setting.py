@@ -22,4 +22,4 @@ class Setting:
         self.AlienSheetBeginningDistance = 2    # 敌人初始距离（alien.rect.height的整数倍）
         self.direction = 1           # 移动方向（1为向右，-1为向左）
         self.alienMoveSpeedHorizontal = 8  # 外星人移动速度(必须>1)
-        self.alienMoveSpeedVertical = 50        # 向下速度
+        self.alienMoveSpeedVertical = 10        # 向下速度
