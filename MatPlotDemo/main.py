@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import matplotlib
 import numpy as np
 ## 绘制曲线
 # x = [1, 3, 9, 16, 25, 36]
@@ -88,7 +87,7 @@ import numpy as np
 # plt.legend()
 # plt.show()
 
-##条形图
+# #条形图
 # labels = ["2019", "2020", "2021", "2022"]
 # num1 = [50, 100, 150, 200]
 # num2 = [10, 100, 200, 300]
@@ -110,7 +109,7 @@ import numpy as np
 #
 # plt.show()
 
-##
+# # 读CSV
 # import csv
 # from datetime import datetime
 # filename = 'C:\\Users\\eivision\\Desktop\\222.csv'
@@ -156,23 +155,45 @@ import numpy as np
 #
 # plt.show()
 
-# 绘制心形2
-import turtle
-turtle.color('red', 'pink')
-turtle.pensize(2)
-turtle.pendown()
-turtle.setheading(150)
-turtle.begin_fill()
-turtle.fd(50)
-turtle.circle(50 * -3.745, 45)
-turtle.circle(50 * -1.431, 165)
-turtle.left(120)
-turtle.circle(50 * -1.431, 165)
-turtle.circle(50 * -3.745, 45)
-turtle.fd(50)
-turtle.end_fill()
+# # 绘制心形2
+# import turtle
+# turtle.color('red', 'pink')
+# turtle.pensize(2)
+# turtle.pendown()
+# turtle.setheading(150)
+# turtle.begin_fill()
+# turtle.fd(50)
+# turtle.circle(50 * -3.745, 45)
+# turtle.circle(50 * -1.431, 165)
+# turtle.left(120)
+# turtle.circle(50 * -1.431, 165)
+# turtle.circle(50 * -3.745, 45)
+# turtle.fd(50)
+# turtle.end_fill()
 
+## plot
+x = np.linspace(-10, 10, 100)
+siny = np.sin(x)
+cosy = np.cos(x)
 
+plt.figure(figsize = (12, 6), dpi = 100, facecolor = 'white')
+plt.title('sinx/cosx')
+plt.xlabel('x')
+plt.ylabel('y')
+# plt.xlim(-2*np.pi, 2*np.pi)
+plt.axis([-10, 10, -2, 2])
+plt.plot(x, siny, ls = '-', lw = 2, c = 'blue', label = 'sin(x)')
+plt.plot(x, cosy, ls = '-', lw = 2, c = 'green', label = 'cos(x)')
+plt.legend(loc = 'upper right')
+plt.grid(False, axis = 'both',ls = ':', c = 'y')
+plt.axhline(y = 1.0, ls = '--', lw = 2, c = 'r')
+plt.axhline(y = -1.0, ls = '--', lw = 2, c = 'r')
+plt.axvspan(xmin = 0.0, xmax = np.pi/2, color = 'grey', alpha = 0.4)
+plt.text(1.3, 0.3, s= 'cos(x)', weight = 'bold', color = 'green')
+plt.text(2.8, 0.3, s= 'sin(x)', weight = 'bold', color = 'blue')
+plt.annotate(text ="(0,1)", xy = (0,1), xytext = (1,1.5), weight = 'bold', color = 'red', arrowprops = dict(arrowstyle = '-|>', color = 'black',\
+                                                                                                            connectionstyle = 'arc3, rad = 0.5'))
+plt.show()
 
 
 
