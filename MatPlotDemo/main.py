@@ -171,35 +171,137 @@ import numpy as np
 # turtle.fd(50)
 # turtle.end_fill()
 
-## plot
-x = np.linspace(-10, 10, 100)
-siny = np.sin(x)
-cosy = np.cos(x)
+# # ## plot sin(x)、cos(x)
+# x = np.linspace(-10, 10, 100)
+# siny = np.sin(x)
+# cosy = np.cos(x)
+#
+# plt.figure(figsize = (12, 6), dpi = 100, facecolor = 'white')
+# plt.title('sinx/cosx')
+# plt.xlabel('x')
+# plt.ylabel('y')
+# # plt.xlim(-2*np.pi, 2*np.pi)
+# plt.axis([-10, 10, -2, 2])
+# plt.plot(x, siny, ls = '-', lw = 2, c = 'blue', label = r'$sin(x)$')
+# plt.plot(x, cosy, ls = '-', lw = 2, c = 'green', label = r'$cos(x)$')
+# plt.legend(loc = 'upper right')
+# plt.grid(False, axis = 'both',ls = ':', c = 'y')
+# plt.axhline(y = 1.0, ls = '--', lw = 2, c = 'r')
+# plt.axhline(y = -1.0, ls = '--', lw = 2, c = 'r')
+# plt.axvspan(xmin = 0.0, xmax = np.pi/2, color = 'grey', alpha = 0.4)
+# plt.text(1.3, 0.3, s= 'cos(x)', weight = 'bold', color = 'green')
+# plt.text(2.8, 0.3, s= 'sin(x)', weight = 'bold', color = 'blue')
+# plt.annotate(text ="(0,1)", xy = (0,1), xytext = (1,1.5), weight = 'bold', color = 'red', arrowprops = dict(arrowstyle = '-|>', color = 'black',\
+#                                                                                                             connectionstyle = 'arc3, rad = 0.5'))
+# plt.show()
 
-plt.figure(figsize = (12, 6), dpi = 100, facecolor = 'white')
-plt.title('sinx/cosx')
-plt.xlabel('x')
-plt.ylabel('y')
-# plt.xlim(-2*np.pi, 2*np.pi)
-plt.axis([-10, 10, -2, 2])
-plt.plot(x, siny, ls = '-', lw = 2, c = 'blue', label = 'sin(x)')
-plt.plot(x, cosy, ls = '-', lw = 2, c = 'green', label = 'cos(x)')
-plt.legend(loc = 'upper right')
-plt.grid(False, axis = 'both',ls = ':', c = 'y')
-plt.axhline(y = 1.0, ls = '--', lw = 2, c = 'r')
-plt.axhline(y = -1.0, ls = '--', lw = 2, c = 'r')
-plt.axvspan(xmin = 0.0, xmax = np.pi/2, color = 'grey', alpha = 0.4)
-plt.text(1.3, 0.3, s= 'cos(x)', weight = 'bold', color = 'green')
-plt.text(2.8, 0.3, s= 'sin(x)', weight = 'bold', color = 'blue')
-plt.annotate(text ="(0,1)", xy = (0,1), xytext = (1,1.5), weight = 'bold', color = 'red', arrowprops = dict(arrowstyle = '-|>', color = 'black',\
-                                                                                                            connectionstyle = 'arc3, rad = 0.5'))
+# ## 嵌套饼图
+# import matplotlib as mpl
+# import matplotlib.pyplot as plt
+# fig = plt.figure(figsize=(12,8), facecolor = 'cornsilk')
+# mpl.rcParams["font.sans-serif"]=["SimHei"]
+# mpl.rcParams["axes.unicode_minus"]=False
+# labels1 = "A难度水平","B难度水平","C难度水平","D难度水平"
+# labels2 = ['A', 'B', 'C', 'D']
+#
+# students1 = [0.35,0.15,0.20,0.30]
+# colors1 = ['orange', 'limegreen', 'blue', 'violet']
+# explode = (0,0,0,0)
+#
+# # 绘制外层饼图
+# wedges1, texts1, autotexts1 = plt.pie(students1,explode=explode,
+# labels=labels1,
+# autopct="%3.1f%%",
+# startangle=45,
+# shadow=False,
+# colors=colors1,pctdistance = 0.85, labeldistance = 1.1,radius = 0.7, wedgeprops= {'lw':1, 'edgecolor':'w'})
+#
+# # 绘制内层饼图
+# students2 = [0.3, 0.2, 0.25, 0.25]
+# colors2 = ['orange', 'limegreen', 'blue', 'violet']
+# wedges2, texts2, autotexts2 = plt.pie(students2, explode=explode,labels=labels2,autopct="%3.1f%%",startangle=45,shadow=False,\
+#                                       colors=colors2, pctdistance = 0.85, labeldistance = 1.1, radius = 0.5, wedgeprops= {'lw':1, 'edgecolor':'w'})
+#
+# # 绘制中心空白饼图
+# plt.pie(x=[1], colors = 'w', radius = 0.3)
+#
+# plt.legend(wedges1, labels1, loc = 'upper right', title = '外环', edgecolor = 'red', facecolor = 'pink', fontsize =10, ncol = 2)
+# # plt.legend(wedges2, labels2, loc = 'lower right', title = '内环', edgecolor = 'red', facecolor = 'pink', fontsize =10)
+#
+# plt.title("title", style = 'oblique', size = 'xx-large', color = 'c', family="Comic Sans MS")
+#
+# plt.table([students1, students2], cellLoc='left', colWidths=[0.4, 0.4, 0.4, 0.4], colLabels=labels1, colColours=colors1, rowLabels=['外环数据', '内环数据'], rowColours=['orange', 'limegreen'], rowLoc='right', loc = 'bottom')
+#
+# plt.show()
+
+# ## 横向箱线图
+# import matplotlib as mpl
+# mpl.rcParams["font.sans-serif"]=["FangSong"]
+# mpl.rcParams["axes.unicode_minus"]=False
+# testA = np.random.randn(5000)
+# testB = np.random.randn(5000)
+# testList = [testA,testB]
+# labels = ["随机数生成器AlphaRM","随机数生成器BetaRM"]
+# colors = ["#1b9e77","#d95f02"]
+# whis = 1.6
+# width = 0.35
+# bplot = plt.boxplot(testList, whis=whis, widths=width, sym="+", patch_artist=True,vert = False, showfliers = True)
+# for patch,color in zip(bplot["boxes"],colors):
+#     patch.set_facecolor(color)
+# plt.xlabel("随机数值")
+# plt.yticks(ticks= [1, 2], labels= labels, rotation = 90)
+# plt.title("生成器抗干扰能力的稳定性比较")
+# plt.grid(axis="y",ls=":",lw=1,color="gray",alpha=0.4)
+# plt.show()
+
+
+
+# import numpy as np
+# import matplotlib.pyplot as plt
+#
+# x = np.linspace(0, 5 * np.pi, 1000)
+#
+# y1 = np.sin(x)
+# y2 = np.sin(2 * x)
+#
+# plt.fill(x, y1, color = 'darkorange', alpha = 0.4, label="$ y = sin(x) $")
+# plt.fill(x, y2, color = 'violet', alpha = 0.4, label="$ y = sin(2 * x) $")
+# plt.legend(loc='best')
+#
+# plt.show()
+
+
+
+
+# import matplotlib.pyplot as plt
+# import numpy as np
+#
+# y = np.arange(0.0, 2, 0.01)
+# x1 = np.sin(2 * np.pi * y)
+# x2 = 1.2 * np.sin(4 * np.pi * y)
+#
+# fig, [ax1, ax2, ax3] = plt.subplots(3, 1, sharex=True)
+#
+# ax1.fill_betweenx(y, 0, x1)
+# ax1.set_ylabel('(x1, 0)')
+#
+# ax2.fill_betweenx(y, x1, 1)
+# ax2.set_ylabel('(x1, 1)')
+#
+# ax3.fill_betweenx(y, x1, x2)
+# ax3.set_ylabel('(x1, x2)')
+# ax3.set_xlabel('x')
+#
+# plt.show()
+
+x = np.linspace(-2*np.pi, 2*np.pi, 100)
+y1 = np.sin(x)
+y2 = np.cos(x)
+plt.plot((x.min(), x.max()), (0, 0))
+plt.plot(x, y1, color = 'blue', label = '$sin(x)$')
+plt.plot(x ,y2, color = 'red', label = '$cos(x)$')
+# plt.fill_between(x, y2, y1, where = (x>0)&(x<np.pi/2), color = 'darkorange', alpha = 0.4)
+# plt.fill_between(x, y1, y2, where = (y1<y2), color = 'violet', alpha = 0.4)
+plt.fill_between(x, y1, 0.5, where = (y1>0.5)&(x>0)&(x<np.pi), color = 'violet', alpha = 0.5)
+plt.legend(loc = 'best')
 plt.show()
-
-
-
-
-
-
-
-
-
